@@ -1,23 +1,17 @@
-# Raylib Setup using Premake5
-This is a template system for building cross platform raylib projects using premake. It is focused on intermediate to advanced users.
-for a simple template, please see Raylib-QuickStart
+# Frame Rate Independent Input Example
+This is a basic example that shows how to use the SUPPORT_CUSTOM_FRAME_CONTROL build flag to decouple rendering from input, while still using a single thread.
 
-  * https://github.com/raylib-extras/raylib-quickstart
+# How it works
+By setting SUPPORT_CUSTOM_FRAME_CONTROL=1 in the build options, raylib will no longer automaticly update the frame buffer and pollinput during calls to EndDrawing.
+This allows a game to determine when and where it actually draws a frame.
 
-## Video Tutorial
-A video covering this process is here
-https://youtu.be/--gI9083QnU
+This example runs the input loop as fast as posible, and tracks the keys and mouse buttons that are pressed and released in an input queue.
+It uses an accumulator to compute a fixed step tick timestep, and processes game logic and renders only on that frame rate, independent of the actual update frame rate.
 
-# Download this repository
-Download the game premake repository from 
+
+# Building
+This repository uses the build system from game premake.
 https://github.com/raylib-extras/game-premake/
-You can either download the zip file, or clone the repository.
-If you clone the repository, you may want to remove the stored history. Simply delete the .git directory to do this.
-
-Rename the directory whatever you want. This will be the name of your game.
-
-# Example app
-This repository is pre-populated with a simple C++ starting application that uses external headers and a static library, simply as an example of how to set them up.
 
 # Generate Projects
 For windows users, there are two batch files you can use depending on what compiler you are using. For linux users you can simply use a terminal.
@@ -57,7 +51,7 @@ cd to the root folder and run
 	
 This will generate a makefile for you.
 
-# Build your game
+# Build the example
 Only do ONE of these options depending on your compiler and platform.
 
 ## Visual Studio (MSVC) Users
@@ -78,45 +72,8 @@ Open your terminal, change to the root folder and type.
 
     make
 	
-This will build your starting game template.
+This will build the example
 	
-	
-# Building for other OpenGL targets
-If you need to build for a different OpenGL version than the default (OpenGL 3.3) you can specify an openGL version in your premake command line. Just modify the bat file or add the following to your command line.
-
-## For OpenGL 1.1
---graphics=opengl11
-
-## For OpenGL 2.1
---graphics=opengl21
-
-## For OpenGL 4.3
---graphics=opengl43
-
-## For OpenGLES 2.0
---graphics=opengles2
-
-## For OpenGLES 3.0
---graphics=opengles3
-
-# Changing the static libs
-The example template uses a sample static lib. If you want to rename it or duplicate it, you can. Just be sure to change the link_to line in the premake5.lua file in the game folder. It needs to point the correct folder.
-
-link_to("LIB_FOLDER_NAME")
-
-Rerun premake and it will build your library for you.
-Note that by default link_to will add include dirs for your library folder and library/include. If you have other include needs you will have to add those to your premake file manually.
-
-If you do not want a static library, simply remove the link_to line from your lua script
-
-# (Optional) Get Raylib
-If you wish to use a specific version of raylib, follow the instructions below. If you want the current development version, skip this section and premake will download raylib for you.
-
-## Download Raylib
-Get the raylib sources from 
-https://github.com/raysan5/raylib
-Download the zip file, or clone the repository. It doesn't matter what one you use.
-Put the raylib sources in a folder called raylib inside your game folder (The same folder this file is in). The folder must be named raylib, it can not be raylib-master. The raylib folder should contain all the sources from raylib (including the 'src' folder).
 
 # License
-Game Premake by Jeffery Myers is marked CC0 1.0. To view a copy of this mark, visit https://creativecommons.org/publicdomain/zero/1.0/
+This example by Jeffery Myers is marked CC0 1.0. To view a copy of this mark, visit https://creativecommons.org/publicdomain/zero/1.0/

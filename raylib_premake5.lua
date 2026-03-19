@@ -2,6 +2,8 @@
 
 
 function platform_defines()
+    defines("SUPPORT_CUSTOM_FRAME_CONTROL=1")
+    
      filter {"options:backend=GLFW"}
         defines{"PLATFORM_DESKTOP"}
 
