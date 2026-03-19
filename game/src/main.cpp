@@ -117,7 +117,8 @@ void ProcessFixedTickUpdate(float deltaTime)
         switch (key.Key)
         {
         case KEY_SPACE:
-            RotationDir *= -1;
+            if (key.Pressed)
+                RotationDir *= -1;
             break;
         }
     }
